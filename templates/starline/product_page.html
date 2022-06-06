@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'product_page/css/null_for_templates.css' %}">
+    <link rel="stylesheet" href="{% static 'product_page/css/style.css' %}">
+    <title>StarLine</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="header__block">
+
+                <div class="header__context">
+                    <div class="container">
+                        <div class="header__context-wrap">
+                            {% for item in contacts %}
+                            <a href="{% url 'index' %}" class="header__logo">
+                                {{ item.name }}
+                            </a>
+                            <div class="header__hours">
+                                <p class="header__contact-flex weekday">
+                                    {{ item.time_work1 }}
+                                </p>
+                                <p class="weekend">
+                                    {{ item.time_work2 }}
+                                </p>
+                            </div>
+                            <div class="header__contact">
+                                <a href="tel:{{ item.phone1 }}" class="header__contact-flex telefon">
+                                    {{ item.phone1 }}
+                                </a>
+                                <p class="header__contact-flex adress">
+                                    {{ item.address }}
+                                </p>
+                            </div>
+                            <div class="header__social">
+                                {% if item.social_info2 %}
+                                <a href="{{ item.social_info2 }}" class="social telegram"></a>
+                                {% endif %}
+                                {% if item.social_info1 %}
+                                <a href="{{ item.social_info1 }}" class="social vk"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-wrap">
+                    <div class="container">
+                        <div class="header">
+                            <a href="{% url 'index' %}" class="header__logo logo-desktop">
+                                {{ item.name }}
+                            </a>
+                            <div class="header__burger">
+                                <span></span>
+                            </div>
+                            <nav class="header__menu">
+                                <ul class="menu__list">
+                                    <li>
+                                        <a href="{% url 'catalog' %}" class="list__link">Каталог</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'our_works' %}" class="list__link">Наши работы</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'action' %}" class="list__link">Акции и скидки</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'about_company' %}" class="list__link">О сервисе</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'contact' %}" class="list__link">Контакты</a>
+                                    </li>
+                                </ul>
+                                <div class="header__contact-mob">
+                                    <a href="{{ item.phone1 }}" class="telefon">
+                                        {{ item.phone1 }}
+                                    </a>
+                                    <div class="header__hours">
+                                        <p class="weekday">
+                                            {{ item.time_work1 }}
+                                        </p>
+                                        <p class="weekend">
+                                            {{ item.time_work2 }}
+                                        </p>
+                                    </div>
+                                    <p class="adress">
+                                        {{ item.address }}
+                                    </p>
+                                    <div class="header__social">
+                                        {% if item.social_info2 %}
+                                        <a href="{{ item.social_info2 }}" class="social telegram"></a>
+                                        {% endif %}
+                                        {% if  item.social_info1 %}
+                                        <a href="{{ item.social_info1 }}" class="social vk"></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                <button class="header__advice" data-modal="advice">
+                                    Бесплатная консультация
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class="main">
+                <div class="container">
+                    <div class="main-wrap">
+                        <div class="product__pagination">
+                            <a href="{% url 'index' %}" class="pagintaion__link">Главная</a>
+                            <a href="#" class="pagintaion__link">Каталог</a>
+                            <a href="#" class="pagintaion__link pagintaion__page">{{ prod.title }}</a>
+                        </div>
+                        <div class="product">
+                            <div class="product__block">
+                                <div class="product__features">
+                                    <div class="features__img">
+                                        {% if prod.image %}
+                                        <img src="{{ prod.image.url }}" alt="StarLine">
+                                        {% else %}
+                                        <img src="{% static 'product_page/img/features_product-img.png' %}" alt="StarLine">
+                                        {% endif %}
+                                    </div>
+                                    <div class="features__about">
+                                        <h3 class="features__subtitle">
+                                            {{ prod.category.security }}
+                                        </h3>
+
+                                        <p class="features__text">
+                                           {{ prod.description|safe }}
+                                        </p>
+
+                                    </div>
+                                </div>
+                                <div class="product__tabs">
+                                    <p class="tabs__text tab-choice" data-tabs="feature">
+                                        Характеристики
+                                    </p>
+                                    <p class="tabs__text" data-tabs="instructions">
+                                        Инструкции
+                                    </p>
+                                </div>
+                                <div class="product__perfomance">
+                                    <h3 class="perfomance__title">
+                                        Характеристики {{ prod.title }}
+                                    </h3>
+                                    <ul class="perfomance__list">
+                                        {% for har in prod.characteristics.all %}
+                                        <li class="perfomance__item">
+                                            <div class="perfomance__circle">1</div>
+                                            <p class="perfomance-item__title">
+                                                {{ har.title }}
+                                            </p>
+                                            <p class="perfomance-item__text">
+                                                {{ har.description }}
+                                            </p>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <aside class="product__info">
+                                <h3 class="info__title">
+                                    {{ prod.title }}
+                                </h3>
+                                <p class="info__text">
+                                    {{ prod.category.security }}
+                                </p>
+                                <div class="info__equipment">
+                                    <p class="info__equipment-text">
+                                        Оборудование:
+                                    </p>
+                                    <p class="info__equipment-price">
+                                        {{ prod.price }} BYN
+                                    </p>
+                                </div>
+                                <div class="info__plant">
+                                    <p class="info__plant-text">
+                                        Установка:
+                                    </p>
+                                    <p class="info__plant-price">
+                                        {{ prod.price_install }} BYN
+                                    </p>
+                                </div>
+                                <button class="info__btn" data-modal="advice">
+                                    Оставить заявку
+                                </button>
+                                {% for item in conatacts %}
+                                <p class="info__tel">Или звоните</p>
+                                <a href="tel:{{ item.phone1 }}" class="info__tel-link a1">
+                                    {{ item.phone1 }}
+                                </a>
+                                <a href="tel:{{ item.phone2 }}" class="info__tel-link mts">
+                                    {{ item.phone2 }}
+                                </a>
+                                {% endfor %}
+                            </aside>
+                        </div>
+                        <section class="popular">
+                            <div class="container">
+                                <h2 class="popular__title title">
+                                    Популярные товары
+                                </h2>
+                                <div class="card-wrap">
+                                    <div class="card">
+
+                                    </div>
+                                    <div class="card__info">
+                                        <a href="#" class="card__link btn-text">
+                                            Смотреть больше товаров
+                                        </a>
+                                        <p class="card__text">
+                                            В каталоге <span>{{ products }} позиций</span>, для <span>214</span> марок автомобилей
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <div class="modal">
+                <div class="modal__form-wrap">
+                    <div class="modal__cross"></div>
+                    <h3 class="modal__title">
+                        Заявка на бесплатную консультацию
+                    </h3>
+                    <p class="modal__subtitle">
+                        Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы
+                    </p>
+                    <form action="" class="modal__form">
+                        <p class="modal__input-title">
+                            Ваше имя
+                        </p>
+                        <input type="text" name="user__name" class="modal__input" placeholder="Иванов Иван Иванович">
+                        <p class="modal__input-title">
+                            Номер телефона
+                        </p>
+                        <input type="tel" name="user__tel" class="modal__input" placeholder="+375" pattern="[0-9]">
+                        <p class="modal__input-title m-display">
+                            Текст отзыва
+                        </p>
+                        <textarea class="modal__textarea m-display" name="comment__text" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
+                        <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
+                    </form>
+                </div>
+            </div>
+            <div class="m-confirm__wrapper">
+                <div class="m-confirm">
+                    <div class="m-confirm__cross"></div>
+                    <div class="m-confirm__img">
+                        <img src="{% static 'product_page/img/icons/m-confirm_img.svg' %}" alt="confirm">
+                    </div>
+                    <h3 class="m-confirm__title">
+                        Отзыв успешно отправлен
+                    </h3>
+                    <p class="m-confirm__subtitle">
+                        Спасибо, отзыв появится на сайте в течение нескольких дней. 
+                    </p>
+                    <button class="m-confirm__btn btn-text">
+                        Понятно, спасибо
+                    </button>
+                </div>
+            </div>
+        </main>
+        <footer>
+            {% for item in contacts %}
+            <section class="footer__navigation">
+                <div class="container">
+                    <div class="footer__nav">
+                        <a href="{% url 'index' %}" class="nav__logo">
+                            {{ item.name }}
+                        </a>
+                        {% endfor %}
+                        <nav class="nav__menu">
+                            <ul class="nav__list">
+                                <li>
+                                    <a href="{% url 'catalog' %}" class="nav__link">Каталог</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'our_works' %}" class="nav__link">Наши работы</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'action' %}" class="nav__link">Акции и скидки</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'about_company' %}" class="nav__link">О сервисе</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'contact' %}" class="nav__link">Контакты</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="footer__author">
+                        <p>
+                            © Все права защищены 2022
+                        </p>
+                        <div class="author__wrap">
+                            <p>
+                                Цены на сайте указаны без НДС
+                            </p>
+                            <p>
+                                Дизайн: <a href="https://shkuratovdesigner.com/">shkuratovdesigner.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </footer>
+    </div>
+    <script src="{% static 'about_company/js/header.js' %}"></script>
+    <script src="{% static 'about_company/js/modal_window.js' %}"></script>
+    <script src="{% static 'product_page/js/popular_card.js' %}"></script>
+    <script src="{% static 'product_page/js/product_card.js' %}"></script>
+</body>
+</html>
