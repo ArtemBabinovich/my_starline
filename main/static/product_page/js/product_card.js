@@ -1,33 +1,19 @@
-const productPerfomance = document.querySelector('.product__perfomance');
-let outerProductPerfomance = productPerfomance.outerHTML;
+const tabsText = document.querySelectorAll('.tabs__text');
+    tabsText.forEach(el => el.addEventListener('click', setClassTab));
 
-const tabsBlock = document.querySelector('.product__tabs');
-    tabsBlock.addEventListener('click', (event) => {
-        if(event.target.getAttribute('data-tabs') === 'instructions'){
-            setClassTab();
-                productPerfomance.innerHTML = '';
+    function setClassTab(e){
+        const productPerfomance = document.querySelectorAll('.product__perfomance');
 
-            const productPerfomanceTitle = document.createElement('h3');
-                productPerfomanceTitle.className = 'perfomance__title';
-                productPerfomanceTitle.innerHTML = `Инструкции ${document.querySelector('.pagintaion__page').innerHTML}`;
-                productPerfomance.append(productPerfomanceTitle);
-
-
-                const linkInstruction = document.createElement('a');
-                    linkInstruction.setAttribute('href', '#');
-                    linkInstruction.innerHTML = `
-                                            ${document.querySelector('.pagintaion__page').innerHTML}, 
-                                            инструкции по эксплуатации и установке`;
-                    productPerfomance.insertAdjacentElement('beforeend', linkInstruction);
-        } else{
-            setClassTab();
-            productPerfomance.innerHTML = outerProductPerfomance;
+        if(e.target.getAttribute('data-tabs') == 'feature'){
+            productPerfomance[1].style.display = 'none';
+            productPerfomance[0].style.display = 'block';
         }
-    });
+        if(e.target.getAttribute('data-tabs') == 'instructions'){
+            productPerfomance[0].style.display = 'none';
+            productPerfomance[1].style.display = 'block';
+        }
 
-    function setClassTab(){
-        const tabsText = document.querySelectorAll('.tabs__text');
-            tabsText.forEach(elem => elem.classList.contains('tab-choice') ? 
-                                elem.classList.remove('tab-choice') : 
-                                elem.classList.add('tab-choice'));
+        tabsText.forEach(el => el.classList.remove('tab-choice'));
+        e.target.classList.add('tab-choice');
     }
+

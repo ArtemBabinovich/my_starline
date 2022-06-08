@@ -1,67 +1,32 @@
-import requests
+
+from django.http import FileResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
-from .forms import FeedbackForm, FeedbackFormCon
-
-from .models import Contacts, Product, Feedback, Company, Action, Sale, OurWork
-
-
-tele_bot_token = '5259906909:AAGwzQMWTVFTVuQha9NPOROQjzVGxYCVfys'
-chat_id = 821421337
+from .models import Contacts, Product, Company, Action, Sale, OurWork
+from .utils import GenericPhone
 
 
-def index(request):
-    contacts = Contacts.objects.all()
-    products = Product.objects.count()
-    """Телеграм бот из формы для заявки"""
-    phone_form = FeedbackForm()
-    if request.method == 'POST':
-        phone_form = FeedbackForm(request.POST)
-        if phone_form.is_valid():
-            updated_values = {'published': False}
-            phone_number = phone_form.cleaned_data['phone']
-            name = phone_form.cleaned_data['name']
-            message = phone_form.cleaned_data['message']
-            Feedback.objects.update_or_create(phone=phone_number, name=name, message=message, defaults=updated_values)
-            requests.post(
-                url=f'https://api.telegram.org/bot{tele_bot_token}/sendMessage',
-                data={'chat_id': chat_id,
-                      'text': f'*Новая заявка:* {phone_number}\n*Имя:* {name}\n*Сообщение:* {message}',
-                      'parse_mode': 'markdown'}).json()
-            return render(request, template_name='starline/index.html')
+class Index(ListView, GenericPhone):
+    """Главная"""
+    model = Contacts
+    template_name = 'starline/index.html'
+    context_object_name = 'contact'
 
-    """Телеграм бот из формы для консультации"""
-    phone_con = FeedbackFormCon()
-    if request.method == 'POST':
-        phone_con = FeedbackFormCon(request.POST)
-        if phone_con.is_valid():
-            updated_values = {'published': False}
-            phone_number = phone_con.cleaned_data['phone_c']
-            Feedback.objects.update_or_create(phone=phone_number, defaults=updated_values)
-            requests.post(
-                url=f'https://api.telegram.org/bot{tele_bot_token}/sendMessage',
-                data={'chat_id': chat_id,
-                      'text': f'* Нужна консультация:* {phone_number}',
-                      'parse_mode': 'markdown'}).json()
-            return render(request, template_name='starline/index.html')
-    context = {
-        'products': products,
-        'contacts': contacts,
-        'phone_form': phone_form,
-        'phone_con': phone_con,
-    }
-    return render(request, 'starline/index.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['products'] = Product.objects.count()
+        return context
 
 
-class ContactsView(ListView):
+class ContactsView(ListView, GenericPhone):
     """Контакты и информация"""
     model = Contacts
     template_name = 'starline/contact.html'
-    context_object_name = 'contacts'
+    context_object_name = 'contact'
 
 
-class AboutCompanyView(ListView):
+class AboutCompanyView(ListView, GenericPhone):
     """О компании"""
     model = Company
     template_name = 'starline/about_company.html'
@@ -69,11 +34,11 @@ class AboutCompanyView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['contacts'] = Contacts.objects.all()
+        context['contact'] = Contacts.objects.all()
         return context
 
 
-class ActionView(ListView):
+class ActionView(ListView, GenericPhone):
     """Вывод акций на экран"""
     model = Action
     template_name = 'starline/action.html'
@@ -84,16 +49,16 @@ class ActionView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['contacts'] = Contacts.objects.all()
+        context['contact'] = Contacts.objects.all()
         context['sale'] = Sale.objects.filter(published=True)
         return context
 
 
-def listourwork(request):
-    """наши работы"""
-    contacts = Contacts.objects.all()
-    context = {'contacts': contacts}
-    return render(request, 'starline/portfolio_all.html', context)
+class ListOurWorkView(ListView, GenericPhone):
+    """Список портфолио"""
+    model = Contacts
+    template_name = 'starline/portfolio_all.html'
+    context_object_name = 'contact'
 
 
 class DetailOurWorkView(DetailView):
@@ -105,15 +70,15 @@ class DetailOurWorkView(DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['products'] = Product.objects.count()
-        context['contacts'] = Contacts.objects.all()
+        context['contact'] = Contacts.objects.all()
         return context
 
 
-def all_product(request):
+class AllProductView(ListView, GenericPhone):
     """Вывод продуктов на экран"""
-    contacts = Contacts.objects.all()
-    context = {'contacts': contacts}
-    return render(request, 'starline/catalog.html', context)
+    model = Contacts
+    template_name = 'starline/catalog.html'
+    context_object_name = 'contact'
 
 
 class DetailProductView(DetailView):
@@ -124,16 +89,25 @@ class DetailProductView(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['contacts'] = Contacts.objects.all()
+        context['contact'] = Contacts.objects.all()
         context['products'] = Product.objects.count()
         return context
 
 
-def not_page(request):
-    contacts = Contacts.objects.all()
-    return render(request, '404/404.html', {'contacts': contacts})
+def pdf_response(request, id):
+    try:
+        obj = Product.objects.get(id=id)
+        return FileResponse(open('media/'+str(obj.instruction), 'rb'))
+    except BaseException as e:
+        return render(request, 'starline/product_page.html')
+
+
+class Not_page(ListView, GenericPhone):
+    model = Contacts
+    template_name = '404.html'
+    context_object_name = 'contact'
 
 
 def error(request, exception):
     contacts = Contacts.objects.all()
-    return render(request, '404/404.html', {'contacts': contacts}, status=404)
+    return render(request, '404.html', {'contact': contacts}, status=404)

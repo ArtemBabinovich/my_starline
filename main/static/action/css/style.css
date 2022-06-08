@@ -702,6 +702,7 @@ textarea:focus {
 .discount__card.stock-card .discount__card-info {
   max-width: 675px;
   position: relative;
+  flex: 1 1 auto;
 }
 
 .discount__card.stock-card .card-info__subtitle {
@@ -734,7 +735,7 @@ textarea:focus {
   position: absolute;
   width: 121px;
   height: 121px;
-  top: 50%;
+  top: 100px;
   right: -40px;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -1466,9 +1467,15 @@ textarea:focus {
   display: -ms-flexbox;
   display: flex;
 }
+.author__wrap p a{
+  color: #808080;
+}
 
-.author__wrap p:first-child {
-  margin-right: 64px;
+.author__wrap p {
+  margin-right: 32px;
+}
+.author__wrap p:last-child{
+  margin-right: 0;
 }
 
 .author__wrap a {
@@ -1612,8 +1619,11 @@ textarea:focus {
   .author__wrap {
     display: block;
   }
-  .author__wrap p:first-child {
+  .author__wrap p {
     margin: 0 0 8px 0;
+  }
+  .author__wrap p:last-child{
+    margin: 0;
   }
 }
 

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'main_page/css/null_for_templates.css' %}">
     <link rel="stylesheet" href="{% static 'main_page/css/style.css' %}">
     <title>StarLine</title>
-
 </head>
 <body>
     <div class="wrapper">
@@ -26,19 +25,19 @@
                         </div>
                     </div>
                 </div>
-                {% for item in contacts %}
                 <div class="header__context">
                     <div class="container">
+                        {% for item in contact %}
                         <div class="header__context-wrap">
                             <a href="{% url 'index' %}" class="header__logo">
-                                {{ item.name }}
+                                StarLine-alarm
                             </a>
                             <div class="header__hours">
                                 <p class="header__contact-flex weekday">
-                                    {{ item.time_work1 }}
+                                    Пн-Пт {{ item.time_work1 }}
                                 </p>
                                 <p class="weekend">
-                                    {{ item.time_work2 }}
+                                    Сб-Вс {{ item.time_work2 }}
                                 </p>
                             </div>
                             <div class="header__contact">
@@ -55,16 +54,18 @@
                                 {% endif %}
                                 {% if item.social_info1 %}
                                 <a href="{{ item.social_info1 }}" class="social vk"></a>
-                            {% endif %}
+                                {% endif %}
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="header-wrap">
+                    {% for item in contact %}
                     <div class="container">
                         <div class="header">
                             <a href="{% url 'index' %}" class="header__logo logo-desktop">
-                                {{ item.name }}
+                                StarLine-alarm
                             </a>
                             <div class="header__burger">
                                 <span></span>
@@ -88,15 +89,15 @@
                                     </li>
                                 </ul>
                                 <div class="header__contact-mob">
-                                    <a href="{{ item.phone1 }}" class="telefon">
+                                    <a href="tel:{{ item.phone1 }}" class="telefon">
                                         {{ item.phone1 }}
                                     </a>
                                     <div class="header__hours">
                                         <p class="weekday">
-                                            {{ item.time_work1 }}
+                                            Пн-Пт {{ item.time_work1 }}
                                         </p>
                                         <p class="weekend">
-                                            {{ item.time_work2 }}
+                                            Сб-Вс {{ item.time_work2 }}
                                         </p>
                                     </div>
                                     <p class="adress">
@@ -117,8 +118,8 @@
                             </nav>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </header>
         <main>
@@ -147,18 +148,16 @@
                                 Авторизованный<br>установочный сервис
                             </div>
                         </div>
-
-                        <form class="main__form" method="POST" id="phone_c">
+                        <form action="/" method="post" class="main__form">
+                            {% csrf_token %}
                             <div class="main__form-wrap">
-                                {% csrf_token %}
-                                {{ phone_con.phone_c }}
-                                <input type="submit" value="Получить консультацию" class="main__btn">
+                                <input name="phone" type="tel" class="main__input" placeholder="+375">
+                                <button class="main__btn">Получить консультацию</button>
                             </div>
                             <p class="main__text">
-                                Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.
+                                Перезвоним в течении 10 минут и наш технический эксперт ответит на все ваши вопросы.
                             </p>
                         </form>
-
                         <p class="main__text main__text-color">
                             Работаем с НДС, оказываем услуги по коммерческому мониторингу за авто
                         </p>
@@ -222,22 +221,22 @@
                 <div class="container">
                     <div class="popular-wrap">
                         <div class="popular__links">
-                            <a href="#" class="links__item">
+                            <a href="{% url 'catalog' %}" class="links__item">
                                 <img src="{% static 'main_page/img/security-img.png' %}" alt="security">
                                 <p>Охранные комплексы</p>
                                 <div class="links__line links-red"></div>
                             </a>
-                            <a href="#" class="links__item">
+                            <a href="{% url 'catalog' %}" class="links__item">
                                 <img src="{% static 'main_page/img/trackers-img.png' %}" alt="trackers">
                                 <p>Трекеры и мониторинг</p>
                                 <div class="links__line links-green"></div>
                             </a>
-                            <a href="#" class="links__item">
+                            <a href="{% url 'catalog' %}" class="links__item">
                                 <img src="{% static 'main_page/img/equipment-img.png' %}" alt="equipment">
                                 <p>Дополнительное <span>оборудование</span></p>
                                 <div class="links__line links-orange"></div>
                             </a>
-                            <a href="#" class="links__item">
+                            <a href="{% url 'catalog' %}" class="links__item">
                                 <img src="{% static 'main_page/img/control-img.png' %}" alt="control">
                                 <p>Дистанционное <span>управление ЦЗ</span></p>
                                 <div class="links__line links-black"></div>
@@ -251,14 +250,12 @@
 
                             </div>
                             <div class="card__info">
-                                <a href="#" class="card__link btn-text">
+                                <a href="{% url 'catalog' %}" class="card__link btn-text">
                                     Смотреть больше товаров
                                 </a>
-
                                 <p class="card__text">
-                                    В каталоге {{ products }} позиций, для 214 марок автомобилей
+                                    В каталоге <span>{{ products }} позиций</span>, для <span>214</span> марок автомобилей
                                 </p>
-
                             </div>
                         </div>
                     </div>
@@ -313,17 +310,14 @@
                         <div class="card-wrap">
                             <div class="card">
 
-
                             </div>
                             <div class="card__info">
-                                <a href="#" class="card__link btn-text">
+                                <a href="{% url 'catalog' %}" class="card__link btn-text">
                                     Смотреть больше товаров
                                 </a>
-
                                 <p class="card__text">
-                                    В каталоге {{ products }} позиций, для 214 марок автомобилей
+                                    В каталоге<span>{{ products }} позиций</span>, для<span>214</span>марок автомобилей
                                 </p>
-
                             </div>
                         </div>
                     </div>
@@ -348,7 +342,6 @@
                 <div class="container">
                     <div class="review-card__column">
 
-
                     </div>
                     <div class="review__link-wrap">
                         <a href="{% url 'our_works' %}" class="review__link btn-text">Смотреть больше работ</a>
@@ -364,7 +357,7 @@
                         <div class="comment__title title">
                             Только живые отзывы от реальных людей
                         </div>
-                         <div class="slider__content">
+                        <div class="slider__content">
                             <div class="slider-arrow left">
                             </div>
                             <div class="comment__slider-wrap">
@@ -386,7 +379,7 @@
                             </div>
                         </div>
                         <div class="comment__page">
-                             <span class="comment__page-first">1</span> из <span class="comment__page-last">23</span>
+                            <span class="comment__page-first">1</span> из <span class="comment__page-last">23</span>
                         </div>
                         <div class="comment__link-wrap">
                             <button class="comment__link btn-text" data-modal="review">
@@ -405,19 +398,20 @@
                     <p class="modal__subtitle">
                         Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы
                     </p>
-                    <form action="" class="modal__form">
+                    <form action="/" method="post" class="modal__form">
+                        {% csrf_token %}
                         <p class="modal__input-title">
                             Ваше имя
                         </p>
-                        <input type="text" name="user__name" class="modal__input" placeholder="Иванов Иван Иванович">
+                        <input type="text" name="name" class="modal__input" placeholder="Иванов Иван Иванович">
                         <p class="modal__input-title">
                             Номер телефона
                         </p>
-                        <input type="tel" name="user__tel" class="modal__input" placeholder="+375" pattern="[0-9]">
+                        <input type="tel" name="phone" class="modal__input" placeholder="+375" pattern="[0-9]">
                         <p class="modal__input-title m-display">
                             Текст отзыва
                         </p>
-                        <textarea class="modal__textarea m-display" name="comment__text" placeholder="Установил иммобилайзер и не потерял гарантию диллера. Рекомендую"></textarea>
+                        <textarea class="modal__textarea m-display" name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
                         <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
                     </form>
                 </div>
@@ -441,8 +435,8 @@
             </div>
         </main>
         <footer>
-            {% for item in contacts %}
             <section class="footer">
+                {% for item in contact %}
                 <div class="container">
                     <div class="footer-wrap">
                         <div class="footer__info">
@@ -458,14 +452,13 @@
                                         Время работы
                                     </div>
                                     <div class="work-time__block">
-                                        <img src="{% static 'main_page/img/icons/footer-time-img.svg' %}" class="work-item__img"
-                                             alt="work-time">
+                                        <img src="{% static 'main_page/img/icons/footer-time-img.svg' %}" class="work-item__img" alt="work-time">
                                         <div class="work-time__text">
                                             <p class="footer-text">
-                                                {{ item.time_work1 }}
+                                                Пн-Пт {{ item.time_work1 }}
                                             </p>
                                             <p class="footer-text">
-                                                {{ item.time_work2 }}
+                                                Сб-Вс {{ item.time_work2 }}
                                             </p>
                                         </div>
                                     </div>
@@ -479,7 +472,6 @@
                                     </a>
                                     <a href="tel:{{ item.phone2 }}" class="telefon__link link-mtc footer-text">
                                         {{ item.phone2 }}
-
                                     </a>
                                 </div>
                             </div>
@@ -488,7 +480,7 @@
                                     <div class="mail__title footer-title">
                                         E-mail
                                     </div>
-                                    <a class="mail__link footer-text">
+                                    <a href="#" class="mail__link footer-text">
                                         {{ item.email }}
                                     </a>
                                 </div>
@@ -507,40 +499,40 @@
                                 </div>
                                 <div class="social__link-wrap">
                                     {% if item.social_info2 %}
-                                    <a href="{{ item.social_info2 }}" class="social telegram"></a>
+                                    <a href="{{ item.social_info2 }}" class="social__link telegram"></a>
                                     {% endif %}
                                     {% if item.social_info1 %}
-                                    <a href="{{ item.social_info1 }}" class="social vk"></a>
+                                    <a href="{{ item.social_info1 }}" class="social__link vk"></a>
                                     {% endif %}
                                 </div>
                             </div>
                         </div>
-                        <form class="footer__form" method="POST">
+                        <form action="/" method="post" class="footer__form">
                             {% csrf_token %}
-                            <p class="form__title" id="name">
+                            <p class="form__title">
                                 Имя
-                                {{ phone_form.name }}
                             </p>
-                            <p class="form__title" id="phone">
+                            <input type="text" name="name" placeholder="Иванов Иван Иванович" class="footer-text">
+                            <p class="form__title">
                                 Номер телефона
-                                {{ phone_form.phone }}
                             </p>
-                            <p class="form__title" id="message">
+                            <input type="tel" name="phone" placeholder="+375" class="footer-tel">
+                            <p class="form__title">
                                 Опишите свой вопрос
-                                {{ phone_form.message }}
                             </p>
+                            <textarea name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера" required></textarea>
                             <input type="submit" value="Отправить" class="form__btn btn-text">
                             <p class="form__subtitle">
-                                Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.
+                                Перезвоним в течении 10 минут и наш технический эксперт ответит на все ваши вопросы.
                             </p>
                         </form>
                     </div>
                 </div>
             </section>
-
             <section class="footer__map">
                 {{ item.maps|safe }}
             </section>
+            {% endfor %}
             <section class="footer__about">
                 <div class="container">
                     <h2 class="about__title title">
@@ -572,12 +564,9 @@
             <section class="footer__navigation">
                 <div class="container">
                     <div class="footer__nav">
-
                         <a href="{% url 'index' %}" class="nav__logo">
-                            {{ item.name }}
+                            StarLine-alarm
                         </a>
-                        {% endfor %}
-
                         <nav class="nav__menu">
                             <ul class="nav__list">
                                 <li>
@@ -609,6 +598,9 @@
                             <p>
                                 Дизайн: <a href="https://shkuratovdesigner.com/">shkuratovdesigner.com</a>
                             </p>
+                            <p>
+                                Разработан: <a href="#">ITEC Education Complex</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -616,12 +608,13 @@
         </footer>
     </div>
     <script src="{% static 'main_page/js/header.js' %}"></script>
+    <script src="{% static 'main_page/js/form.js' %}"></script>
     <script src="{% static 'main_page/js/popular_card.js' %}"></script>
     <script src="{% static 'main_page/js/new_product_card.js' %}"></script>
     <script src="{% static 'main_page/js/reviews.js' %}"></script>
     <script src="{% static 'main_page/js/comment.js' %}"></script>
     <script src="{% static 'main_page/js/modal_window.js' %}"></script>
-    <script src="{% static 'main_page/js/validation_main.js' %}" ></script>
+    <script src="{% static 'main_page/js/validation_main.js' %}"></script>
     <script src="{% static 'main_page/js/validation_footer.js' %}"></script>
 </body>
 </html>

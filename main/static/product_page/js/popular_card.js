@@ -11,8 +11,7 @@
 
                 //! создаем карточку товара
                 const cardItem = document.createElement('a');
-                    cardItem.setAttribute(
-                        'href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`);
+                    cardItem.setAttribute('href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`);
                     cardItem.className = 'card__item';
 
                     //! функция создания обертки для img!
@@ -25,7 +24,7 @@
                             cardImg.src = card.image;
 
                             cardImgWrap.append(cardImg);
-                        
+
                         return cardImgWrap;
                     }
                     //? вставляем в каточку обертку с img
@@ -36,7 +35,7 @@
                         const cardTitle = document.createElement('p');
                             cardTitle.className = 'item__title';
                             cardTitle.innerHTML = card.title;
-                        
+
                         return cardTitle;
                     }
                     //? вставляем в каточку заголовки

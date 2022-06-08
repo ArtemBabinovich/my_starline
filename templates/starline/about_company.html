@@ -15,17 +15,17 @@
             <div class="header__block">
                 <div class="header__context">
                     <div class="container">
+                        {% for item in contact %}
                         <div class="header__context-wrap">
-                            {% for item in contacts %}
                             <a href="{% url 'index' %}" class="header__logo">
-                                {{ item.name }}
+                                StarLine-alarm
                             </a>
                             <div class="header__hours">
-                                 <p class="header__contact-flex weekday">
-                                    {{ item.time_work1 }}
+                                <p class="header__contact-flex weekday">
+                                    Пн-Пт {{ item.time_work1 }}
                                 </p>
                                 <p class="weekend">
-                                    {{ item.time_work2 }}
+                                    Сб-Вс {{ item.time_work2 }}
                                 </p>
                             </div>
                             <div class="header__contact">
@@ -45,13 +45,15 @@
                                 {% endif %}
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="header-wrap">
+                    {% for item in contact %}
                     <div class="container">
                         <div class="header">
                             <a href="{% url 'index' %}" class="header__logo logo-desktop">
-                                {{ item.name }}
+                                StarLine-alarm
                             </a>
                             <div class="header__burger">
                                 <span></span>
@@ -75,15 +77,15 @@
                                     </li>
                                 </ul>
                                 <div class="header__contact-mob">
-                                    <a href="{{ item.phone1 }}" class="telefon">
+                                    <a href="tel:{{ item.phone1 }}" class="telefon">
                                         {{ item.phone1 }}
                                     </a>
                                     <div class="header__hours">
                                         <p class="weekday">
-                                            {{ item.time_work1 }}
+                                            Пн-Пт {{ item.time_work1 }}
                                         </p>
                                         <p class="weekend">
-                                            {{ item.time_work2 }}
+                                            Сб-Вс {{ item.time_work2 }}
                                         </p>
                                     </div>
                                     <p class="adress">
@@ -98,13 +100,13 @@
                                         {% endif %}
                                     </div>
                                 </div>
-                                {% endfor %}
                                 <button class="header__advice" data-modal="advice">
                                     Бесплатная консультация
                                 </button>
                             </nav>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </header>
@@ -116,16 +118,15 @@
                             <a href="{% url 'index' %}" class="pagintaion__link">Главная</a>
                             <a href="{% url 'about_company' %}" class="pagintaion__link pagintaion__page">О сервисе</a>
                         </div>
+                        {% for i in company %}
                         <div class="company">
                             <div class="company__about">
-                                {% for i in company %}
                                 <h2 class="company__title title">
                                     О компании
                                 </h2>
                                 <p class="company__text">
                                     {{ i.description|safe }}
                                 </p>
-
                             </div>
                             <div class="company__img">
                                 <img src="{{ i.image1.url }}" alt="company">
@@ -140,12 +141,16 @@
                             </p>
                         </div>
                         <div class="company__img-frame">
+                            {% if i.image2 %}
                             <div class="img-frame frame-img-one">
                                 <img src="{{ i.image2.url }}" alt="frame">
                             </div>
+                            {% endif %}
+                            {% if i.image3 %}
                             <div class="img-frame frame-img-two">
                                 <img src="{{ i.image3.url }}" alt="frame">
                             </div>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </section>
@@ -160,20 +165,21 @@
                     <p class="modal__subtitle">
                         Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы
                     </p>
-                    <form action="" class="modal__form">
+                    <form action="/" method="post" class="modal__form">
+                        {% csrf_token %}
                         <p class="modal__input-title">
                             Ваше имя
                         </p>
-                        <input type="text" name="user__name" class="modal__input" placeholder="Иванов Иван Иванович">
+                        <input type="text" name="name" class="modal__input" placeholder="Иванов Иван Иванович">
                         <p class="modal__input-title">
                             Номер телефона
                         </p>
-                        <input type="tel" name="user__tel" class="modal__input" placeholder="+375" pattern="[0-9]">
+                        <input type="tel" name="phone" class="modal__input" placeholder="+375" pattern="[0-9]">
                         <p class="modal__input-title m-display">
-                            Текст отзыва
+                            Текст вопроса
                         </p>
-                        <textarea class="modal__textarea m-display" name="comment__text" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
-                        <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
+                        <textarea class="modal__textarea m-display" name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
+                        <input type="button" value="Оставить заявку" class="modal__btn btn-text">
                     </form>
                 </div>
             </div>
@@ -184,10 +190,10 @@
                         <img src="{% static 'about_company/img/icons/m-confirm_img.svg' %}" alt="confirm">
                     </div>
                     <h3 class="m-confirm__title">
-                        Отзыв успешно отправлен
+                        Мы получили вашу заявку
                     </h3>
                     <p class="m-confirm__subtitle">
-                        Спасибо, отзыв появится на сайте в течение нескольких дней. 
+                        Наш технический специалист перезвонит вам в течение 10 минут
                     </p>
                     <button class="m-confirm__btn btn-text">
                         Понятно, спасибо
@@ -196,9 +202,9 @@
             </div>
         </main>
         <footer>
-            {% for item in contacts %}
             <section class="footer">
                 <div class="container">
+                    {% for item in contacts %}
                     <div class="footer-wrap">
                         <div class="footer__info">
                             <h2 class="footer__title title">
@@ -213,13 +219,13 @@
                                         Время работы
                                     </div>
                                     <div class="work-time__block">
-                                       <img src="{% static 'about_company/img/icons/footer-time-img.svg' %}" class="work-item__img" alt="work-time">
+                                        <img src="{% static 'about_company/img/icons/footer-time-img.svg' %}" class="work-item__img" alt="work-time">
                                         <div class="work-time__text">
                                             <p class="footer-text">
-                                                {{ item.time_work1 }}
+                                                Пн-Пт {{ item.time_work1 }}
                                             </p>
                                             <p class="footer-text">
-                                                {{ item.time_work2 }}
+                                                Сб-Вс {{ item.time_work2 }}
                                             </p>
                                         </div>
                                     </div>
@@ -241,7 +247,7 @@
                                     <div class="mail__title footer-title">
                                         E-mail
                                     </div>
-                                    <a href="#" class="mail__link footer-text">
+                                    <a href="email:{{ item.email }}" class="mail__link footer-text">
                                         {{ item.email }}
                                     </a>
                                 </div>
@@ -268,22 +274,23 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="#" class="footer__form">
+                        <form action="/" method="post" class="footer__form">
+                            {% csrf_token %}
                             <p class="form__title">
                                 Имя
                             </p>
-                            <input type="text" placeholder="Иванов Иван Иванович" class="footer-text">
+                            <input type="text" name="name" placeholder="Иванов Иван Иванович" class="footer-text">
                             <p class="form__title">
                                 Номер телефона
                             </p>
-                            <input type="tel" placeholder="+375" class="footer-tel">
+                            <input type="tel" name="phone" placeholder="+375" class="footer-tel">
                             <p class="form__title">
                                 Опишите свой вопрос
                             </p>
                             <textarea name="form_footer" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера" required></textarea>
-                            <input type="submit" value="Отправить" class="form__btn btn-text">
+                            <input type="submit" name="message" value="Отправить" class="form__btn btn-text">
                             <p class="form__subtitle">
-                                Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.
+                                Перезвоним в течении 10 минут и наш технический эксперт ответит на все ваши вопросы.
                             </p>
                         </form>
                     </div>
@@ -292,6 +299,7 @@
             <section class="footer__map">
                 {{ item.maps|safe }}
             </section>
+            {% endfor %}
             <section class="footer__about">
                 <div class="container">
                     <h2 class="about__title title">
@@ -324,7 +332,7 @@
                 <div class="container">
                     <div class="footer__nav">
                         <a href="{% url 'index' %}" class="nav__logo">
-                            {{ item.name }}
+                            StarLine-alarm
                         </a>
                         <nav class="nav__menu">
                             <ul class="nav__list">
@@ -346,7 +354,6 @@
                             </ul>
                         </nav>
                     </div>
-                    {% endfor %}
                     <div class="footer__author">
                         <p>
                             © Все права защищены 2022
@@ -358,6 +365,9 @@
                             <p>
                                 Дизайн: <a href="https://shkuratovdesigner.com/">shkuratovdesigner.com</a>
                             </p>
+                            <p>
+                                Разработан: <a href="#">ITEC Education Complex</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -365,6 +375,7 @@
         </footer>
     </div>
     <script src="{% static 'about_company/js/header.js' %}"></script>
+    <script src="{% static 'about_company/js/form.js' %}"></script>
     <script src="{% static 'about_company/js/modal_window.js' %}"></script>
     <script src="{% static 'about_company/js/validation_footer.js' %}"></script>
 </body>

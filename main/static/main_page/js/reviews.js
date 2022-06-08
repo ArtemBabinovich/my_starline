@@ -9,11 +9,12 @@ function getReviewText(){
         const reviewsBlock = document.querySelector('.review-card__column');
 
         reviewItems.forEach((item, index) => {
+        if(index < 6){
             const reviewCard = document.createElement('div');
                 reviewCard.className = 'review-card';
             
             reviewsBlock.append(reviewCard);
-        });
+            }});
 
         reviewCard = document.querySelectorAll('.review-card');
             
@@ -58,10 +59,8 @@ function getReviewText(){
                 const reviewCardLink = document.createElement('a');
                     reviewCardLink.className = 'review-card__link';
                     reviewCardLink.innerHTML = 'Подробнее';
-                    reviewCardLink.href = `https://starline.pythonanywhere.com/our_work/${reviewItems[index].slug}`;
                     //! тут надо добавить ссылку на карточку!!!
-
-
+                    
                 item.append(reviewCardLink);
             });
 

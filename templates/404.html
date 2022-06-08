@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'action/css/null_for_templates.css' %}">
-    <link rel="stylesheet" href="{% static 'action/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'error/css/null_for_templates.css' %}">
+    <link rel="stylesheet" href="{% static 'error/css/style.css' %}">
     <title>StarLine</title>
 </head>
 <body>
@@ -49,8 +49,8 @@
                     </div>
                 </div>
                 <div class="header-wrap">
-                    {% for item in contact %}
                     <div class="container">
+                        {% for item in contact %}
                         <div class="header">
                             <a href="{% url 'index' %}" class="header__logo logo-desktop">
                                 StarLine-alarm
@@ -105,134 +105,27 @@
                                 </button>
                             </nav>
                         </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </header>
         <main>
-            <section class="main">
+            <section>
                 <div class="container">
-                    <div class="main-wrap">
-                        <div class="product__pagination">
-                            <a href="{% url 'index' %}" class="pagintaion__link">Главная</a>
-                            <a href="{% url 'action' %}" class="pagintaion__link pagintaion__page">Акции и скидки</a>
+                    <div class="error">
+                        <div class="error__img">
+                            <img src="{% static 'error/img/404-img.png' %}" alt="404">
                         </div>
-                        <section class="discount">
-                            <h2 class="discount__title title">
-                                Акции и скидки
-                            </h2>
-                                {% for act in action %}
-                                <div class="discount__card">
-                                    <div class="discount__card-info">
-                                        <p class="card-info__subsubtitle">
-                                           {{ act.title }}
-                                        </p>
-                                        <h3 class="card-info__title">
-                                           {{ act.product }}
-                                        </h3>
-                                        <div class="card-info__price">
-                                            <p>
-                                                {{ act.product.price }} BYN
-                                            </p>
-                                            <p>
-                                                {{ act.price }} руб.
-                                            </p>
-                                        </div>
-                                        <div class="card-info__btn">
-                                            <button class="btn__application btn-text" data-modal="advice">
-                                                Оставить заявку
-                                            </button>
-                                            <a href="{% url 'detail_product_view' act.product.slug %}" class="card-info__link">
-                                                Смотреть товар
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="discount__card-img">
-                                        <div class="card__image">
-                                            <img src="{% static 'action/img/discount-car.png' %}" alt="img">
-                                        </div>
-                                        <div class="card__image-border">
-                                            <img src="{{ act.product.image.url }}" alt="StarLine">
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for sal in sale %}
-                                <div class="discount__card stock-card">
-                                    <div class="discount__card-info">
-                                        <h3 class="card-info__title">
-                                            {{ sal.title }}
-                                        </h3>
-                                        <p class="card-info__subtitle">
-                                            {{ sal.description }}
-                                        </p>
-                                        <div class="card-info__btn">
-                                            <button class="btn__application btn-text" data-modal="advice">
-                                                Оставить заявку
-                                            </button>
-                                        </div>
-                                        <div class="card__image-stock">
-                                            <img src="{% static 'action/img/stock_star-img.png' %}" alt="stock">
-                                            <p class="image-stock__text">
-                                                <span>до</span>
-                                                <span>{{ sal.sale }}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="discount__card-img">
-                                        <div class="card__image">
-                                            <img src="{% static 'action/img/stock-img.png' %}" alt="img">
-                                        </div>
-                                        <div class="card__image-border">
-                                            {% if sal.image %}
-                                            <img src="{{ sal.image.url }}" alt="StarLine">
-                                            {% else %}
-                                                <img src="{% static 'action/img/card-img-1.png' %}" alt="img">
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                        </section>
-                    </div>
-                </div>
-            </section>
-            <section class="comment">
-                <div class="container">
-                    <div class="comment-wrap">
-                        <div class="comment__title title">
-                            Только живые отзывы от реальных людей
-                        </div>
-                        <div class="slider__content">
-                            <div class="slider-arrow left">
-                            </div>
-                            <div class="comment__slider-wrap">
-                                <div class="comment__slider">
-                                    <div class="comment__item">
-                                        <h3 class="slider__title">
-                                            
-                                        </h3>
-                                        <p class="slider__text">
-                                            
-                                        </p>
-                                        <p class="slider__contact">
-                                            
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slider-arrow right">
-                            </div>
-                        </div>
-                        <div class="comment__page">
-                            <span class="comment__page-first">1</span> из <span class="comment__page-last">23</span>
-                        </div>
-                        <div class="comment__link-wrap">
-                            <button class="comment__link btn-text" data-modal="review">
-                                Написать отзыв
-                            </button>
-                        </div>
+                        <h1 class="error__title">
+                            Страница не найдена
+                        </h1>
+                        <h2 class="error__subtitle">
+                            Перейдите на главную страницу, там у нас много интересного!
+                        </h2>
+                        <a href="{% url 'index' %}" class="error__link btn-text">
+                            Вернуться на главную
+                        </a>
                     </div>
                 </div>
             </section>
@@ -256,7 +149,7 @@
                         </p>
                         <input type="tel" name="phone" class="modal__input" placeholder="+375" pattern="[0-9]">
                         <p class="modal__input-title m-display">
-                            Текст отзыва
+                            Текст вопроса
                         </p>
                         <textarea class="modal__textarea m-display" name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
                         <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
@@ -267,13 +160,13 @@
                 <div class="m-confirm">
                     <div class="m-confirm__cross"></div>
                     <div class="m-confirm__img">
-                        <img src="{% static 'action/img/icons/m-confirm_img.svg' %}" alt="confirm">
+                        <img src="{% static 'error/img/icons/m-confirm_img.svg' %}" alt="confirm">
                     </div>
                     <h3 class="m-confirm__title">
-                        Отзыв успешно отправлен
+                        Мы получили вашу заявку
                     </h3>
                     <p class="m-confirm__subtitle">
-                        Спасибо, отзыв появится на сайте в течение нескольких дней. 
+                        Наш технический специалист перезвонит вам в течение 10 минут
                     </p>
                     <button class="m-confirm__btn btn-text">
                         Понятно, спасибо
@@ -328,9 +221,8 @@
             </section>
         </footer>
     </div>
-    <script src="{% static 'action/js/header.js' %}"></script>
-    <script src="{% static 'action/js/form.js' %}"></script>
-    <script src="{% static 'action/js/comment.js' %}"></script>
-    <script src="{% static 'action/js/modal_window.js' %}"></script>
+    <script src="{% static 'error/js/header.js' %}"></script>
+    <script src="{% static 'error/js/form.js' %}"></script>
+    <script src="{% static 'error/js/modal_window.js' %}"></script>
 </body>
 </html>

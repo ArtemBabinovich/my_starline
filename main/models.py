@@ -68,7 +68,7 @@ class Product(models.Model):
     description = RichTextField('Описание')
     price = models.DecimalField('Цена оборудования', decimal_places=2, max_digits=7)
     price_install = models.DecimalField('Цена установки', decimal_places=2, max_digits=7)
-    image = models.ImageField('Картинка', blank=True, null=True, upload_to='image/%Y/%m/%d/')
+    image = models.ImageField('Картинка', upload_to='image/%Y/%m/%d/')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='cat', verbose_name='Категория')
     presence = models.CharField('Наличие товара', max_length=200, choices=PRESENCE_CHOICES)
     characteristics = models.ManyToManyField(
@@ -77,7 +77,7 @@ class Product(models.Model):
         blank=True,
         verbose_name='Характеристики'
     )
-    instruction = models.FileField('Инструкция', upload_to='file_instruction/%Y/%m/%d/', blank=True, null=True)
+    instruction = models.FileField('Инструкция', upload_to='file_instruction/%Y/%m/%d/')
     published = models.BooleanField('Опубликовано', default=True)
     popular = models.BooleanField('Популярный товар', default=False)
     novelties = models.BooleanField('Новинка', default=False)
@@ -161,7 +161,7 @@ class OurWork(models.Model):
     installation_time = models.CharField('Время установки', max_length=100)
     installation_price = models.CharField('Стоимость установки', max_length=100)
     description_video = models.TextField('Описание видео', blank=True, null=True)
-    url = models.TextField('Видео', help_text='Вставить ссылку с YouTube', blank=True, null=True)
+    urls = models.TextField('Видео', help_text='Вставить ссылку с YouTube', blank=True, null=True)
     description_image = models.TextField('Описание фото', blank=True, null=True)
     image1 = models.ImageField('Основная картинка', upload_to='image/%Y/%m/%d/')
     image2 = models.ImageField('Картинка 2', blank=True, null=True, upload_to='image/%Y/%m/%d/')
@@ -198,18 +198,17 @@ class Feedback(models.Model):
 
 class Contacts(models.Model):
     """Контакты и информация"""
-    name = models.CharField('Название сервиса', max_length=200)
     address = models.CharField('Адрес сервиса', max_length=250)
-    phone1 = models.CharField('Номер телефона А1', max_length=50, blank=True, null=True)
+    phone1 = models.CharField('Номер телефона А1', max_length=50)
     phone2 = models.CharField('Номер телефона МТС', max_length=50, blank=True, null=True)
-    email = models.CharField('Электронная почта', max_length=200, blank=True, null=True)
+    email = models.CharField('Электронная почта', max_length=200)
     social_info1 = models.CharField('Социальная сеть VK', max_length=200, blank=True, null=True)
     social_info2 = models.CharField('Социальная сеть Telegram', max_length=200, blank=True, null=True)
-    time_work1 = models.CharField('Время работы (будни)', max_length=100)
-    time_work2 = models.CharField('Время работы (выходные)', max_length=100)
+    time_work1 = models.CharField('Время работы (Пн-Пт)', max_length=100)
+    time_work2 = models.CharField('Время работы (Сб-Вс)', max_length=100)
     maps = models.TextField(
         'Расположение на карте',
-        help_text='Вставить ссылку с: https://yandex.ru/map-constructor (выбирать width="100%" height="500")'
+        help_text='Вставить ссылку с: https://yandex.ru/map-constructor (выбирать width="100%" height="494px")'
     )
 
     class Meta:
@@ -217,7 +216,7 @@ class Contacts(models.Model):
         verbose_name_plural = 'Контакты'
 
     def __str__(self):
-        return self.name
+        return self.address
 
 
 class Company(models.Model):

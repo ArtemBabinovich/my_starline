@@ -85,7 +85,6 @@ class FeedbackAdmin(admin.ModelAdmin):
 
 class ContactsAdmin(admin.ModelAdmin):
     list_display = (
-        'name',
         'address',
         'phone1',
         'phone2',
@@ -93,12 +92,12 @@ class ContactsAdmin(admin.ModelAdmin):
         'time_work1',
         'time_work2',
     )
-    list_display_links = ('name',)
+    list_display_links = ('address',)
     list_editable = ('time_work1', 'time_work2')
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('description', 'image1', 'image2', 'image3')
+    list_display = ('description',)
     list_display_links = ('description',)
 
 

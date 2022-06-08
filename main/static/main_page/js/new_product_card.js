@@ -11,8 +11,7 @@
 
                 //! создаем карточку товара
                 const cardItem = document.createElement('a');
-                    cardItem.setAttribute(
-                        'href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`);
+                    cardItem.setAttribute('href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`);
                     cardItem.className = 'card__item';
 
                     //! функция создания текста о выборе

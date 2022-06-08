@@ -5,15 +5,9 @@ const modal = document.querySelector('.modal');
     modal.addEventListener('click', closeModalWindow);
 
 let userPhone = document.querySelector('.modal [type="tel"]');
-    userPhone.addEventListener('input', () => {
-        if(userPhone.value.slice(-1) === '0'){
-            userPhone.value = userPhone.value;
-        } else if(!Number(userPhone.value.slice(-1))){
-            userPhone.value = userPhone.value.slice(0, -1);
-        }
-    });
+
 let modalTextArea = document.querySelector('.modal__textarea');
-let userName =  document.querySelector('.modal [type="text"');
+let userName =  document.querySelector('.modal [type="text"]');
 
 function showModalWindow(e){
     const modalTitle = document.querySelector('.modal__title'),
@@ -67,19 +61,19 @@ confirmModal = document.querySelector('.m-confirm__wrapper');
         }
     });
 
-function validationModalWindow(event){
+async function validationModalWindow(event){
     event.preventDefault();
 
     const confirmModalTitle = document.querySelector('.m-confirm__title'),
         confirmModalText = document.querySelector('.m-confirm__subtitle');
 
-    let re = /^((80|\+375)?)(25|33|44|29)(\d{7})$/;
+    let re = /^((80|\+375)?)\s\((25|33|44|29)\)\s(\d{3})-(\d{2})-(\d{2})$/;
     let userPhone = document.querySelector('.modal [type="tel"]');
-    let userName =  document.querySelector('.modal [type="text"');
+    let userName =  document.querySelector('.modal [type="text"]');
 
     let valid = re.test(userPhone.value);
 
-    if (valid && userName != ''){
+    if (valid && userName.value != ''){
         if(modal.hasAttribute('data-comment')){
             modal.classList.remove('m-show');
             confirmModalTitle.innerHTML = 'Отзыв успешно отправлен';
@@ -91,13 +85,19 @@ function validationModalWindow(event){
             confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 8 минут';
             confirmModal.classList.add('m-confirm-show');
         }
+
+        await fetch('', {
+            method: 'POST',
+            body: new FormData(document.querySelector('.modal__form'))
+        })
+
     } else{
         if(userName.value != ''){
             userName.classList.add('m-input-valid');
         } else{
             userName.classList.add('m-input-error');
         }
-        if(userPhone.value != ''){
+        if(userPhone.value != '' && valid){
             userPhone.classList.add('m-input-valid');
         } else{
             userPhone.classList.add('m-input-error');
