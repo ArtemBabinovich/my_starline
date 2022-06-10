@@ -12,10 +12,10 @@ my_id = 1293474473  # id юзера в телеграмме
 telegramBot = telebot.TeleBot(TOKEN)
 
 
-def dialogue(phone_number, name, question):
+def dialogue(phone_number, name, question, text):
     return requests.post(url=f'https://api.telegram.org/bot{TOKEN}/sendMessage',
                          data={'chat_id': my_id,
-                               'text': f'*Поступила новая заявка:*\n{name}\n{phone_number}\n{question}',
+                               'text': f'*Поступила новая заявка:*\nИмя: {name}\n{phone_number}\n{question}\n{text}',
                                }
                          ).json()
 
@@ -23,6 +23,6 @@ def dialogue(phone_number, name, question):
 def review(phone_number, name, text):
     return requests.post(url=f'https://api.telegram.org/bot{TOKEN}/sendMessage',
                          data={'chat_id': my_id,
-                               'text': f'*Поступил новый отзыв:*\n{name}\n{phone_number}\n{text}',
+                               'text': f'*Ура! Новый отзыв!:*\n{name}\n{phone_number}\n{text}',
                                }
                          ).json()

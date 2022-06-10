@@ -1,13 +1,13 @@
 from django.urls import path
 
 from .views import AllProductView, DetailProductView, ActionView, \
-    ListOurWorkView, Index, ContactsView, AboutCompanyView, DetailOurWorkView, Not_page, pdf_response
+    ListOurWorkView, Index, ContactsView, AboutCompanyView, DetailOurWorkView, Not_page, pdf_response, index, action
 
 urlpatterns = [
-    path('', Index.as_view(), name='index'),
+    path('', index, name='index'),
     path('contact/', ContactsView.as_view(), name='contact'),
     path('about_company/', AboutCompanyView.as_view(), name='about_company'),
-    path('action/', ActionView.as_view(), name='action'),
+    path('action/', action, name='action'),   # нужно две формы!
     path('our_works/', ListOurWorkView.as_view(), name='our_works'),
     path('our_work/<slug:slug>/', DetailOurWorkView.as_view(), name='detail_ourwork_view'),
     path('catalog/', AllProductView.as_view(), name='catalog'),

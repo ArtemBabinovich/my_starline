@@ -4,6 +4,8 @@ const btnModal = document.querySelectorAll('[data-modal]');
 const modal = document.querySelector('.modal');
     modal.addEventListener('click', closeModalWindow);
 
+let infoTitle = document.querySelector('.info__title');
+
 let userPhone = document.querySelector('.modal [type="tel"]');
 
 let modalTextArea = document.querySelector('.modal__textarea');
@@ -26,20 +28,11 @@ function showModalWindow(e){
         document.body.classList.toggle('body-h');
 
     if(e.target.getAttribute('data-modal') === 'advice'){
-        if(e.target.classList.contains('info__btn')){
-            let infoTitle = document.querySelector('.info__title');
-            modalTitle.innerHTML = `Заявка на оборудование ${infoTitle.innerHTML.trim()}`;
-            modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
-            modalBtn.value = 'Отправить';
-            modalShowEl.forEach(elem => elem.style.display = 'none');
-            modal.classList.add('m-show');
-        } else{
-            modalTitle.innerHTML = 'Заявка на бесплатную консультацию';
-            modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
-            modalBtn.value = 'Отправить';
-            modalShowEl.forEach(elem => elem.style.display = 'none');
-            modal.classList.add('m-show');
-        }
+        modalTitle.innerHTML = `Заявка на ${infoTitle.innerHTML}`;
+        modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+        modalBtn.value = 'Отправить';
+        modalShowEl.forEach(elem => elem.style.display = 'none');
+        modal.classList.add('m-show');
     }
     if(e.target.getAttribute('data-modal') === 'review'){
         modalTitle.innerHTML = 'Оставить отзыв';
@@ -54,6 +47,7 @@ function showModalWindow(e){
 function closeModalWindow(e){
     if(e.target === modal || e.target === document.querySelector('.modal__cross') && modal.classList.contains('m-show')){
         modal.classList.remove('m-show');
+        modal.removeAttribute('data-comment');
         document.body.classList.remove('body-h');
     }
 }
@@ -64,6 +58,7 @@ confirmModal = document.querySelector('.m-confirm__wrapper');
             || event.target === document.querySelector('.m-confirm__wrapper')
             || event.target === document.querySelector('.m-confirm__btn')){
                 confirmModal.classList.remove('m-confirm-show');
+                modal.removeAttribute('data-comment');
                 document.body.classList.remove('body-h');
                 userPhone.value = '';
                 userName.value = '';
@@ -93,11 +88,11 @@ async function validationModalWindow(event){
             confirmModalTitle.innerHTML = 'Мы получили вашу заявку';
             confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 8 минут';
             confirmModal.classList.add('m-confirm-show');
+            modalTextArea.value = infoTitle.textContent.trim();
         }
 
         await fetch('', {
             method: 'POST',
-            title: `${infoTitle.textContent.trim()}`,
             body: new FormData(document.querySelector('.modal__form'))
         })
     } else{

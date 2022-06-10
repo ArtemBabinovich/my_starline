@@ -166,7 +166,7 @@
                                     <h3 class="perfomance__title">
                                         Инструкции {{ prod.title }}
                                     </h3>
-                                    <a href="{{ prod.instruction.url }}">
+                                    <a href="{% url 'pdf_response' prod.slug %}">
                                         {{ prod.title }},
                                         инструкции по эксплуатации и установке
                                     </a>
@@ -256,7 +256,7 @@
                             Текст отзыва
                         </p>
                         <textarea class="modal__textarea m-display" name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
-                        <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
+                        <input type="submit" value="Оставить отзыв" class="modal__btn btn-text">
                     </form>
                 </div>
             </div>
@@ -326,9 +326,9 @@
         </footer>
     </div>
     <script src="{% static 'product_page/js/header.js' %}"></script>
-    <script src="{% static 'product_page/js/popular_card.js' %}"></script>
     <script src="{% static 'product_page/js/form.js' %}"></script>
     <script src="{% static 'product_page/js/modal_window.js' %}"></script>
+    <script src="{% static 'product_page/js/popular_card.js' %}"></script>
     <script src="{% static 'product_page/js/product_card.js' %}"></script>
 </body>
 </html>

@@ -131,8 +131,8 @@ class Comment(models.Model):
     """Отзыв на работу"""
     title = models.CharField('Заголовок отзыва', max_length=200, blank=True, null=True)
     name = models.CharField('Имя отправителя отзыва', max_length=200)
-    numbers_phone = models.CharField('Номер телефона', max_length=20)
-    body = models.TextField('Содержимое комментария')
+    phone = models.CharField('Номер телефона', max_length=20)
+    message = models.TextField('Содержимое комментария')
     pub_data = models.DateTimeField('Дата комментария', default=timezone.now)
     published = models.BooleanField('Опубликовано', default=False)
 
@@ -142,10 +142,10 @@ class Comment(models.Model):
         ordering = ('pub_data',)
 
     def __str__(self):
-        return f'Отзыв от {self.name} с текстом: {self.body[:20]}'
+        return f'Отзыв от {self.name} с текстом: {self.message[:20]}'
 
     def body_reduction(self):
-        return u"%s..." % (self.body[:250],)
+        return u"%s..." % (self.message[:250],)
 
     body_reduction.short_description = 'Содержимое комментария'
 
@@ -187,6 +187,7 @@ class Feedback(models.Model):
     name = models.CharField('Имя', max_length=100, blank=True, null=True)
     phone = models.CharField('Номер телефона', max_length=20)
     message = models.TextField('Опишите свой вопрос', blank=True, null=True)
+    text = models.TextField('Опишите свой вопрос', blank=True, null=True)
     published = models.BooleanField('Обработано', default=False)
 
     class Meta:

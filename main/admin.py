@@ -58,10 +58,11 @@ class SaleAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('title', 'name', 'numbers_phone', 'body_reduction', 'published')
+    list_display = ('title', 'name', 'phone', 'body_reduction', 'published')
+    list_display_links = ('name', 'title')
     list_editable = ('published',)
-    list_filter = ('title', 'name', 'numbers_phone')
-    search_fields = ('title', 'name', 'numbers_phone', 'pub_data', 'body_reduction')
+    list_filter = ('title', 'name', 'phone')
+    search_fields = ('title', 'name', 'phone', 'pub_data', 'body_reduction')
 
 
 class OurWorkAdmin(admin.ModelAdmin):
@@ -78,7 +79,8 @@ class OurWorkAdmin(admin.ModelAdmin):
 
 
 class FeedbackAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'message', 'published')
+    list_display = ('name', 'phone', 'message', 'text', 'published')
+    list_display_links = ('phone',)
     list_filter = ('published',)
     list_editable = ('published',)
 

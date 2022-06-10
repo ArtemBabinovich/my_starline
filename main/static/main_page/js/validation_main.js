@@ -32,7 +32,7 @@ const mainBtn = document.querySelector('.main__btn');
             mainText.classList.remove('not-valid-text');
             mainText.innerHTML = 'Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.';
 
-            await fetch('https://starline.pythonanywhere.com', {
+            await fetch('', {
                 method: 'POST',
                 body: new FormData(document.querySelector('form.main__form'))
             })

@@ -415,7 +415,7 @@
                             Текст отзыва
                         </p>
                         <textarea class="modal__textarea m-display" name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера"></textarea>
-                        <input type="button" value="Оставить отзыв" class="modal__btn btn-text">
+                        <input type="submit" value="Оставить отзыв" class="modal__btn btn-text">
                     </form>
                 </div>
             </div>
@@ -426,10 +426,10 @@
                         <img src="{% static 'main_page/img/icons/m-confirm_img.svg' %}" alt="confirm">
                     </div>
                     <h3 class="m-confirm__title">
-                        Отзыв успешно отправлен
+                        Мы получили вашу заявку
                     </h3>
                     <p class="m-confirm__subtitle">
-                        Спасибо, отзыв появится на сайте в течение нескольких дней.
+                        Наш технический специалист перезвонит вам в течение 8 минут.
                     </p>
                     <button class="m-confirm__btn btn-text">
                         Понятно, спасибо
@@ -510,7 +510,8 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="/" method="post" class="footer__form">
+                    {% endfor %}
+                        <form action="" method="post" class="footer__form">
                             {% csrf_token %}
                             <p class="form__title">
                                 Имя
@@ -524,7 +525,7 @@
                             <p class="form__title">
                                 Опишите свой вопрос
                             </p>
-                            <textarea name="message" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера" required></textarea>
+                            <textarea name="text" placeholder="Хочу установить иммобилайзер и не потерять гарантию диллера" required></textarea>
                             <input type="submit" value="Отправить" class="form__btn btn-text">
                             <p class="form__subtitle">
                                 Перезвоним в течении 10 минут и наш технический эксперт ответит на все ваши вопросы.
@@ -533,6 +534,7 @@
                     </div>
                 </div>
             </section>
+            {% for item in contact %}
             <section class="footer__map">
                 {{ item.maps|safe }}
             </section>
@@ -613,12 +615,12 @@
     </div>
     <script src="{% static 'main_page/js/header.js' %}"></script>
     <script src="{% static 'main_page/js/form.js' %}"></script>
+    <script src="{% static 'main_page/js/modal_window.js' %}"></script>
+    <script src="{% static 'main_page/js/validation_main.js' %}"></script>
+    <script src="{% static 'main_page/js/validation_footer.js' %}"></script>
     <script src="{% static 'main_page/js/popular_card.js' %}"></script>
     <script src="{% static 'main_page/js/new_product_card.js' %}"></script>
     <script src="{% static 'main_page/js/reviews.js' %}"></script>
     <script src="{% static 'main_page/js/comment.js' %}"></script>
-    <script src="{% static 'main_page/js/modal_window.js' %}"></script>
-    <script src="{% static 'main_page/js/validation_main.js' %}"></script>
-    <script src="{% static 'main_page/js/validation_footer.js' %}"></script>
 </body>
 </html>

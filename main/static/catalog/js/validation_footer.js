@@ -15,8 +15,17 @@ async function validationFormComment(event){
 
     let valid = re.test(userPhone.value);
 
-    if (valid && userName != '' && userPhone != '' && userTextArea.value != ''){
+    if (valid && userName.value != '' && userPhone.value != '' && valid && userTextArea.value != ''){
         const confirmModal = document.querySelector('.m-confirm__wrapper');
+
+        const confirmModalTitle = document.querySelector('.m-confirm__title'),
+        confirmModalSubTitle = document.querySelector('.m-confirm__subtitle'),
+        confirmModalBtn = document.querySelector('.m-confirm__btn');
+
+        confirmModalTitle.innerHTML = 'Заявка на бесплатную консультацию';
+        confirmModalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+        confirmModalBtn.value = 'Отправить';
+
             userName.classList.remove('m-input-error');
             userName.classList.remove('m-input-valid');
             userPhone.classList.remove('m-input-error');
@@ -24,16 +33,18 @@ async function validationFormComment(event){
             userTextArea.classList.remove('m-input-valid');
             userTextArea.classList.remove('m-input-error');
             errorText.classList.remove('er-show');
+
+            await fetch('', {
+                method: 'POST',
+                body: new FormData(document.querySelector('.footer__form'))
+            })
+
             userName.value = '';
             userPhone.value = '';
             userTextArea.value = '';
             confirmModal.classList.add('m-confirm-show');
             document.body.classList.add('body-h');
 
-            await fetch('', {
-                method: 'POST',
-                body: new FormData(document.querySelector('.footer__form'))
-            })
     } else{
         if(userName.value != ''){
             userName.classList.add('m-input-valid');

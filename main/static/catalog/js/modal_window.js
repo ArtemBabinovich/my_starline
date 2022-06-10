@@ -45,6 +45,7 @@ function showModalWindow(e){
 function closeModalWindow(e){
     if(e.target === modal || e.target === document.querySelector('.modal__cross') && modal.classList.contains('m-show')){
         modal.classList.remove('m-show');
+        modal.removeAttribute('data-comment');
         document.body.classList.remove('body-h');
     }
 }
@@ -55,6 +56,7 @@ confirmModal = document.querySelector('.m-confirm__wrapper');
             || event.target === document.querySelector('.m-confirm__wrapper')
             || event.target === document.querySelector('.m-confirm__btn')){
                 confirmModal.classList.remove('m-confirm-show');
+                modal.removeAttribute('data-comment');
                 document.body.classList.remove('body-h');
                 userPhone.value = '';
                 userName.value = '';

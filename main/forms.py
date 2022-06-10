@@ -7,12 +7,11 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('name', 'numbers_phone', 'body')
+        fields = ('name', 'phone', 'message')
 
 
 class FeedbackForm(forms.ModelForm):
 
     class Meta:
         model = Feedback
-        fields = ('name', 'phone', 'message')
-
+        fields = ('name', 'phone', 'message', 'text')
