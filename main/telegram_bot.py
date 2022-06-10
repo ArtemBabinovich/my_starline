@@ -23,6 +23,6 @@ def dialogue(phone_number, name, question, text):
 def review(phone_number, name, text):
     return requests.post(url=f'https://api.telegram.org/bot{TOKEN}/sendMessage',
                          data={'chat_id': my_id,
-                               'text': f'*Ура! Новый отзыв!:*\n{name}\n{phone_number}\n{text}',
+                               'text': f'--Ура! Новый отзыв!:--\nИмя: {name}\n{phone_number}\nОтзыв: {text}',
                                }
                          ).json()
