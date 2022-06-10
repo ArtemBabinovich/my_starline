@@ -26,12 +26,21 @@ function showModalWindow(e){
         document.body.classList.toggle('body-h');
 
     if(e.target.getAttribute('data-modal') === 'advice'){
-        modalTitle.innerHTML = 'Заявка на бесплатную консультацию';
-        modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
-        modalBtn.value = 'Отправить';
-        modalShowEl.forEach(elem => elem.style.display = 'none');
-        modal.classList.add('m-show');
-    } 
+        if(e.target.classList.contains('info__btn')){
+            let infoTitle = document.querySelector('.info__title');
+            modalTitle.innerHTML = `Заявка на оборудование ${infoTitle.innerHTML.trim()}`;
+            modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+            modalBtn.value = 'Отправить';
+            modalShowEl.forEach(elem => elem.style.display = 'none');
+            modal.classList.add('m-show');
+        } else{
+            modalTitle.innerHTML = 'Заявка на бесплатную консультацию';
+            modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+            modalBtn.value = 'Отправить';
+            modalShowEl.forEach(elem => elem.style.display = 'none');
+            modal.classList.add('m-show');
+        }
+    }
     if(e.target.getAttribute('data-modal') === 'review'){
         modalTitle.innerHTML = 'Оставить отзыв';
         modalSubTitle.innerHTML = 'Через несколько дней Ваш отзыв отобразится на сайте в блоке «Отзывы»';
@@ -51,7 +60,7 @@ function closeModalWindow(e){
 
 confirmModal = document.querySelector('.m-confirm__wrapper');
     confirmModal.addEventListener('click', (event) => {
-        if(event.target === document.querySelector('.m-confirm__cross') 
+        if(event.target === document.querySelector('.m-confirm__cross')
             || event.target === document.querySelector('.m-confirm__wrapper')
             || event.target === document.querySelector('.m-confirm__btn')){
                 confirmModal.classList.remove('m-confirm-show');
@@ -88,10 +97,12 @@ async function validationModalWindow(event){
 
         await fetch('', {
             method: 'POST',
+            title: `${infoTitle.textContent.trim()}`,
             body: new FormData(document.querySelector('.modal__form'))
         })
-
     } else{
+        let errorText = document.querySelector('.modal__error');
+
         if(userName.value != ''){
             userName.classList.add('m-input-valid');
         } else{
@@ -99,9 +110,10 @@ async function validationModalWindow(event){
         }
         if(userPhone.value != '' && valid){
             userPhone.classList.add('m-input-valid');
+            errorText.classList.remove('er-show');
         } else{
+            errorText.classList.add('er-show');
             userPhone.classList.add('m-input-error');
         }
     }
 }
-

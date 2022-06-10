@@ -3,6 +3,7 @@ const cardFormBtn = document.querySelector('.card-form__btn');
 
 let cardText = document.querySelector('.card-form__input[type="text"]');
 let cardTel = document.querySelector('.card-form__input[type="tel"]');
+let errorText = document.querySelector('form.review-card__form .modal__error');
 
 async function validationCard(e){
     e.preventDefault();
@@ -31,15 +32,17 @@ async function validationCard(e){
         }
         if(cardTel.value != '' && valid){
             cardTel.classList.add('m-input-valid');
+            errorText.classList.remove('er-show');
         } else{
             cardTel.classList.add('m-input-error');
+            errorText.classList.add('er-show');
         }
     }
 }
 
 confirmModal = document.querySelector('.m-confirm__wrapper');
     confirmModal.addEventListener('click', (event) => {
-        if(event.target === document.querySelector('.m-confirm__cross') 
+        if(event.target === document.querySelector('.m-confirm__cross')
             || event.target === document.querySelector('.m-confirm__wrapper')
             || event.target === document.querySelector('.m-confirm__btn')){
                 confirmModal.classList.remove('m-confirm-show');
@@ -48,6 +51,7 @@ confirmModal = document.querySelector('.m-confirm__wrapper');
                 cardText.classList.remove('m-input-error');
                 cardTel.classList.remove('m-input-valid');
                 cardTel.classList.remove('m-input-error');
+                errorText.classList.remove('er-show');
                 cardTel.value = '';
                 cardText.value = '';
         }

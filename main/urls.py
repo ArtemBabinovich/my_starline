@@ -12,8 +12,9 @@ urlpatterns = [
     path('our_work/<slug:slug>/', DetailOurWorkView.as_view(), name='detail_ourwork_view'),
     path('catalog/', AllProductView.as_view(), name='catalog'),
     path('catalog/product/<slug:slug>/', DetailProductView.as_view(), name='detail_product_view'),
-    path('pdf/<int:id>', pdf_response, name='pdf_response'),
+    path('pdf/<slug:slug>', pdf_response, name='pdf_response'),
     path('not_page/', Not_page.as_view(), name='error'),
+
 ]
 
 

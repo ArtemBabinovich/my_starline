@@ -6,6 +6,16 @@
   overflow-y: hidden;
 }
 
+.modal__error{
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+.modal__error.er-show{
+  display: block;
+}
+
 .display-none {
   display: none;
 }
@@ -2105,16 +2115,27 @@ textarea:focus {
     color: #2B2D33;
   }
 }
+.m-input-error {
+  border: 1px solid #EE505A;
+}
 
 .m-input-error {
   border: 1px solid #EE505A;
 }
 
-.m-input-error:focus {
+.m-input-valid {
+  border: 1px solid #6C86E2;
+}
+
+.footer__form .m-input-error {
+  border: 1px solid #EE505A;
+}
+
+.footer__form .m-input-error:focus {
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 
-.m-input-valid {
+.footer__form .m-input-valid {
   border: 1px solid #6C86E2;
 }

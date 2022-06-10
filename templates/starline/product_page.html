@@ -166,7 +166,7 @@
                                     <h3 class="perfomance__title">
                                         Инструкции {{ prod.title }}
                                     </h3>
-                                    <a href="{% url 'pdf_response' id=prod.id %}">
+                                    <a href="{{ prod.instruction.url }}">
                                         {{ prod.title }},
                                         инструкции по эксплуатации и установке
                                     </a>
@@ -251,6 +251,7 @@
                             Номер телефона
                         </p>
                         <input type="tel" name="phone" class="modal__input" placeholder="+375" pattern="[0-9]">
+                        <p class="modal__error">Введите номер в формате +375 (__) ___-__-__</p>
                         <p class="modal__input-title m-display">
                             Текст отзыва
                         </p>

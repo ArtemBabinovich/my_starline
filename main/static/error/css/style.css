@@ -13,6 +13,16 @@ input, textarea {
   color: #2B2D33;
 }
 
+.modal__error{
+  display: none;
+  color: red;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+.modal__error.er-show{
+  display: block;
+}
+
 .btn-text {
   font-weight: 400;
   font-size: 18px;
@@ -625,7 +635,7 @@ textarea:focus {
 
 @media (max-width: 768px) {
   .error {
-    padding-top: 40px;
+    padding: 40px 0;
   }
   .error__img {
     margin-bottom: 8px;

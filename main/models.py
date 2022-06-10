@@ -1,5 +1,6 @@
 from ckeditor.fields import RichTextField
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from slugify import slugify
 # Create your models here.

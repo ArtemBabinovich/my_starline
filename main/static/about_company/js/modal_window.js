@@ -31,7 +31,7 @@ function showModalWindow(e){
         modalBtn.value = 'Отправить';
         modalShowEl.forEach(elem => elem.style.display = 'none');
         modal.classList.add('m-show');
-    } 
+    }
     if(e.target.getAttribute('data-modal') === 'review'){
         modalTitle.innerHTML = 'Оставить отзыв';
         modalSubTitle.innerHTML = 'Через несколько дней Ваш отзыв отобразится на сайте в блоке «Отзывы»';
@@ -51,7 +51,7 @@ function closeModalWindow(e){
 
 confirmModal = document.querySelector('.m-confirm__wrapper');
     confirmModal.addEventListener('click', (event) => {
-        if(event.target === document.querySelector('.m-confirm__cross') 
+        if(event.target === document.querySelector('.m-confirm__cross')
             || event.target === document.querySelector('.m-confirm__wrapper')
             || event.target === document.querySelector('.m-confirm__btn')){
                 confirmModal.classList.remove('m-confirm-show');
@@ -88,10 +88,12 @@ async function validationModalWindow(event){
 
         await fetch('', {
             method: 'POST',
-            body: new FormData(document.querySelector('.modal__form'))
+            body: new FormData(document.querySelector('div.modal .modal__form'))
         })
 
     } else{
+        let errorText = document.querySelector('.modal__error');
+
         if(userName.value != ''){
             userName.classList.add('m-input-valid');
         } else{
@@ -99,9 +101,10 @@ async function validationModalWindow(event){
         }
         if(userPhone.value != '' && valid){
             userPhone.classList.add('m-input-valid');
+            errorText.classList.remove('er-show');
         } else{
+            errorText.classList.add('er-show');
             userPhone.classList.add('m-input-error');
         }
     }
 }
-

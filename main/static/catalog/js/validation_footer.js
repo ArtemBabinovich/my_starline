@@ -11,6 +11,7 @@ async function validationFormComment(event){
     let userPhone = document.querySelector('.footer__form [type="tel"]');
     let userName =  document.querySelector('.footer__form [type="text"]');
     let userTextArea = document.querySelector('.footer__form textarea');
+    let errorText = document.querySelector('form.footer__form .modal__error');
 
     let valid = re.test(userPhone.value);
 
@@ -22,6 +23,7 @@ async function validationFormComment(event){
             userPhone.classList.remove('m-input-valid');
             userTextArea.classList.remove('m-input-valid');
             userTextArea.classList.remove('m-input-error');
+            errorText.classList.remove('er-show');
             userName.value = '';
             userPhone.value = '';
             userTextArea.value = '';
@@ -38,9 +40,11 @@ async function validationFormComment(event){
         } else{
             userName.classList.add('m-input-error');
         }
-        if(userPhone.value != '' && userPhone.value != '+375' && valid){
+        if(userPhone.value != '' && valid){
+            errorText.classList.remove('er-show');
             userPhone.classList.add('m-input-valid');
         } else{
+            errorText.classList.add('er-show');
             userPhone.classList.add('m-input-error');
         }
         if(userTextArea.value != ''){
@@ -50,5 +54,3 @@ async function validationFormComment(event){
         }
     }
 }
-
-
