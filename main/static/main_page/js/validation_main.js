@@ -27,7 +27,7 @@ const mainBtn = document.querySelector('.main__btn');
 
         if(valid){
             confirmModalTitle.innerHTML = 'Мы получили вашу заявку';
-            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 8 минут';
+            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 10 минут';
             confirmModal.classList.add('m-confirm-show');
             mainText.classList.remove('not-valid-text');
             mainText.innerHTML = 'Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.';
@@ -45,7 +45,7 @@ const mainBtn = document.querySelector('.main__btn');
             mainInput.classList.add('m-input-error');
         }
         else{
-            mainText.innerHTML = 'Перезвоним в течении 8 минут и наш технический эксперт ответит на все ваши вопросы.';
+            mainText.innerHTML = 'Перезвоним в течении 10 минут и наш технический эксперт ответит на все ваши вопросы.';
             mainInput.classList.remove('m-input-error');
             mainText.classList.remove('not-valid-text');
         }

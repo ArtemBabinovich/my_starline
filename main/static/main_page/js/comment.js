@@ -1,7 +1,7 @@
 //! функция слайдера
 
 function getTextComment(){
-    fetch('https://starline.pythonanywhere.com/starline/comments/')
+    fetch('https://alarmstarline.pythonanywhere.com/starline/comments/')
     .then(response => response.json())
     .then(commentsText => {
 

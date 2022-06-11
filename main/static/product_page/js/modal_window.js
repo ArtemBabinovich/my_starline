@@ -86,7 +86,7 @@ async function validationModalWindow(event){
         } else{
             modal.classList.remove('m-show');
             confirmModalTitle.innerHTML = 'Мы получили вашу заявку';
-            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 8 минут';
+            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 10 минут';
             confirmModal.classList.add('m-confirm-show');
             modalTextArea.value = infoTitle.textContent.trim();
         }

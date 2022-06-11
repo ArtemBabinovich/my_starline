@@ -1,5 +1,5 @@
 function createSearchBlockFunc(){
-    fetch('https://starline.pythonanywhere.com/starline/characteristic/')
+    fetch('https://alarmstarline.pythonanywhere.com/starline/characteristic/')
     .then(responce => responce.json())
     .then(categorySearch => {
 

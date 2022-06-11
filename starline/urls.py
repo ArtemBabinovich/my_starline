@@ -21,7 +21,7 @@ from rest_framework import routers
 
 from main import viewsAPI
 
-router = routers.DefaultRouter()
+router = routers.SimpleRouter()
 router.register(r'comments', viewsAPI.CommentViewSet)
 router.register(r'popular_product', viewsAPI.PopularProductViewSet)
 router.register(r'our_work', viewsAPI.OurWorkViewSet)
@@ -40,6 +40,6 @@ urlpatterns = [
 ]
 
 handler404 = 'main.views.error'
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# if settings.DEBUG:
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

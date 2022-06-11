@@ -1,5 +1,5 @@
 function getReviewText(){
-    fetch('https://starline.pythonanywhere.com/starline/our_work/')
+    fetch('https://alarmstarline.pythonanywhere.com/starline/our_work/')
     .then(response => response.json())
     .then(reviewItems => {
 
@@ -59,6 +59,7 @@ function getReviewText(){
                 const reviewCardLink = document.createElement('a');
                     reviewCardLink.className = 'review-card__link';
                     reviewCardLink.innerHTML = 'Подробнее';
+                    reviewCardLink.href = `https://alarmstarline.pythonanywhere.com/our_work/${reviewItems[index].slug}`;
                     //! тут надо добавить ссылку на карточку!!!
                     
                 item.append(reviewCardLink);

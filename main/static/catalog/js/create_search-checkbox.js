@@ -1,7 +1,7 @@
 const searchBlock = document.querySelectorAll('.search__block');
 
 function createSearchBlock(){
-    fetch('https://starline.pythonanywhere.com/starline/category_search/')
+    fetch('https://alarmstarline.pythonanywhere.com/starline/category_search/')
     .then(responce => responce.json())
     .then(categorySearch => {
         

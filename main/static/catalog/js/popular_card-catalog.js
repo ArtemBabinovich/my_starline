@@ -10,7 +10,7 @@ const popularCardBlock = document.querySelector('.card')
 const button = document.querySelector('.card__link')
 
 function getPopularCard() {
-  return fetch('https://starline.pythonanywhere.com/starline/product/')
+  return fetch('https://alarmstarline.pythonanywhere.com/starline/product/')
     .then((response) => response.json())
     .then((popularCards) => {
       allCards = popularCards
@@ -51,7 +51,7 @@ function drawCards() {
 
         //! создаем карточку товара
         const cardItem = document.createElement('a')
-        cardItem.setAttribute('href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`)
+        cardItem.setAttribute('href', `https://alarmstarline.pythonanywhere.com/catalog/product/${card.slug}`)
         cardItem.className = 'card__item'
 
         //! функция создания обертки для img!

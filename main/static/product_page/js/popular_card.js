@@ -3,7 +3,7 @@
     function getPopularCard(){
         const popularCardBlock = document.querySelector('.card');
 
-        fetch('https://starline.pythonanywhere.com/starline/popular_product/')
+        fetch('https://alarmstarline.pythonanywhere.com/starline/popular_product/')
         .then(response => response.json())
         .then(popularCards => {
             popularCards.forEach((card, index) => {
@@ -11,7 +11,7 @@
 
                 //! создаем карточку товара
                 const cardItem = document.createElement('a');
-                    cardItem.setAttribute('href', `https://starline.pythonanywhere.com/catalog/product/${card.slug}`);
+                    cardItem.setAttribute('href', `https://alarmstarline.pythonanywhere.com/catalog/product/${card.slug}`);
                     cardItem.className = 'card__item';
 
                     //! функция создания обертки для img!
