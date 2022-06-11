@@ -40,6 +40,16 @@ function showModalWindow(e){
         modal.setAttribute('data-comment', 'comment');
         modal.classList.add('m-show');
     }
+    if(e.target.getAttribute('data-modal') === 'action'){
+        let actionTitle = e.target.closest('.discount__card').querySelector('.card-info__title');
+        modalTitle.innerHTML = `Заявка на ${actionTitle.textContent}`;
+        modalTextArea = '';
+        modalTextArea.value = actionTitle.textContent.trim();
+        modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+        modalBtn.value = 'Отправить';
+        modalShowEl.forEach(elem => elem.style.display = 'none');
+        modal.classList.add('m-show');
+    }
 }
 
 function closeModalWindow(e){

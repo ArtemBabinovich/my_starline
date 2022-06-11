@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 from .forms import FeedbackForm, CommentForm
 from .models import Contacts, Product, Company, Action, Sale, OurWork
 from .telegram_bot import dialogue, review
-from .utils import GenericPhone1
+from .utils import GenericPhone1, GenericPhone
 
 
 class Index(ListView, GenericPhone1):
@@ -177,7 +177,7 @@ class AllProductView(ListView, GenericPhone1):
         return context
 
 
-class DetailProductView(GenericPhone1, DetailView):
+class DetailProductView(DetailView, GenericPhone1):
     """Детализация продукта"""
     model = Product
     template_name = 'starline/product_page.html'

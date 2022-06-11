@@ -166,7 +166,7 @@
                                     <h3 class="perfomance__title">
                                         Инструкции {{ prod.title }}
                                     </h3>
-                                    <a href="{% url 'pdf_response' prod.slug %}">
+                                    <a href="{{ prod.instruction.url }}">
                                         {{ prod.title }},
                                         инструкции по эксплуатации и установке
                                     </a>
