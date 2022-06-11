@@ -91,7 +91,7 @@ class CommentSerializer(serializers.ModelSerializer):
     """Отзыв на работу"""
     class Meta:
         model = Comment
-        fields = ['title', 'name', 'body']
+        fields = ['title', 'name', 'message']
 
 
 class OurWorkSerializer(serializers.ModelSerializer):
