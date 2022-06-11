@@ -4,6 +4,8 @@ const btnModal = document.querySelectorAll('[data-modal]');
 const modal = document.querySelector('.modal');
     modal.addEventListener('click', closeModalWindow);
 
+let actionTitleGlobal = '';
+
 let userPhone = document.querySelector('.modal [type="tel"]');
 
 let modalTextArea = document.querySelector('.modal__textarea');
@@ -42,9 +44,8 @@ function showModalWindow(e){
     }
     if(e.target.getAttribute('data-modal') === 'action'){
         let actionTitle = e.target.closest('.discount__card').querySelector('.card-info__title');
+        actionTitleGlobal = actionTitle;
         modalTitle.innerHTML = `Заявка на ${actionTitle.textContent}`;
-        modalTextArea = '';
-        modalTextArea.value = actionTitle.textContent.trim();
         modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
         modalBtn.value = 'Отправить';
         modalShowEl.forEach(elem => elem.style.display = 'none');
@@ -90,11 +91,18 @@ async function validationModalWindow(event){
             modal.classList.remove('m-show');
             confirmModalTitle.innerHTML = 'Отзыв успешно отправлен';
             confirmModalText.innerHTML = 'Спасибо, отзыв появится на сайте в течение нескольких дней.';
+            modalTextArea.name = 'message';
             confirmModal.classList.add('m-confirm-show');
         } else{
             modal.classList.remove('m-show');
             confirmModalTitle.innerHTML = 'Мы получили вашу заявку';
-            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 8 минут';
+            confirmModalText.innerHTML = 'Наш технический специалист перезвонит вам в течение 10 минут';
+            if(actionTitleGlobal.textContent){
+                modalTextArea.value = '';
+                modalTextArea.value = actionTitleGlobal.textContent.trim();
+                console.log(modalTextArea.value);
+                modalTextArea.name = 'text';
+            }
             confirmModal.classList.add('m-confirm-show');
         }
 

@@ -5,20 +5,7 @@ from django.views.generic import ListView, DetailView
 from .forms import FeedbackForm, CommentForm
 from .models import Contacts, Product, Company, Action, Sale, OurWork
 from .telegram_bot import dialogue, review
-from .utils import GenericPhone1, GenericPhone
-
-
-class Index(ListView, GenericPhone1):
-    """Главная"""
-    model = Contacts
-    template_name = 'starline/index.html'
-    context_object_name = 'contact'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['products'] = Product.objects.count()
-        context['form'] = self.get_form()
-        return context
+from .utils import GenericPhone1
 
 
 def index(request):
@@ -44,8 +31,8 @@ def index(request):
                 dialogue(
                     form_number.data['phone'].replace(' ', ''),
                     form_number.data['name'],
+                    'Вопрос:',
                     form_number.data['text'],
-                    '',
                 )
                 return render(request, 'starline/index.html', context)
         if 'name' in request.POST != '':
@@ -88,23 +75,6 @@ class AboutCompanyView(ListView, GenericPhone1):
         return context
 
 
-class ActionView(ListView, GenericPhone1):
-    """Вывод акций на экран"""
-    model = Action
-    template_name = 'starline/action.html'
-    context_object_name = 'action'
-
-    def get_queryset(self):
-        return Action.objects.filter(published=True)
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['contact'] = Contacts.objects.all()
-        context['sale'] = Sale.objects.filter(published=True)
-        context['form'] = self.get_form()
-        return context
-
-
 def action(request):
     """Вывод акций на экран"""
     action = Action.objects.filter(published=True)
@@ -123,6 +93,16 @@ def action(request):
                     form_message.data['name'],
                     form_message.data['message'],
                 )
+                return render(request, 'starline/action.html', context)
+
+        if 'text' in request.POST != '':
+            if form_number.is_valid():
+                form_number.save()
+                dialogue(form_number.data['phone'].replace(' ', ''),
+                         form_number.data['name'],
+                         form_number.data['text'],
+                         'По акции',
+                         )
                 return render(request, 'starline/action.html', context)
 
         if 'name' in request.POST != '':
@@ -188,6 +168,7 @@ class DetailProductView(DetailView, GenericPhone1):
         context['contact'] = Contacts.objects.all()
         context['products'] = Product.objects.count()
         context['form'] = self.get_form()
+
         return context
 
 
@@ -212,4 +193,15 @@ class Not_page(ListView, GenericPhone1):
 
 def error(request, exception):
     contact = Contacts.objects.all()
+    if request.method == 'POST':
+        form_number = FeedbackForm(request.POST)
+        if 'name' in request.POST != '':
+            if form_number.is_valid():
+                form_number.save()
+                dialogue(form_number.data['phone'].replace(' ', ''),
+                         form_number.data['name'],
+                         '',
+                         '',
+                         )
+                return render(request, '404.html', {'contact': contact}, status=404)
     return render(request, '404.html', {'contact': contact}, status=404)
