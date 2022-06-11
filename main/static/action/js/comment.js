@@ -17,7 +17,7 @@ function getTextComment(){
                 sliderTitle.innerHTML = commentsText[count].title;
 
             const sliderText = document.querySelector('.slider__text');
-                sliderText.innerHTML = commentsText[count].body;
+                sliderText.innerHTML = commentsText[count].message;
 
             const sliderNameText = document.querySelector('.slider__contact');
                 sliderNameText.innerHTML = commentsText[count].name;
