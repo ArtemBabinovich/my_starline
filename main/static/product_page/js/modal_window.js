@@ -27,8 +27,11 @@ function showModalWindow(e){
         userPhone.classList.remove('m-input-error');
         document.body.classList.toggle('body-h');
 
+
+
     if(e.target.getAttribute('data-modal') === 'advice'){
-        modalTitle.innerHTML = `Заявка на ${infoTitle.innerHTML}`;
+        modalTitle.innerHTML = `Заявка на бесплатную консультацию`;
+        console.log('22222')
         modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
         modalBtn.value = 'Отправить';
         modalShowEl.forEach(elem => elem.style.display = 'none');
@@ -40,6 +43,14 @@ function showModalWindow(e){
         modalBtn.value = 'Оставить отзыв';
         modalShowEl.forEach(elem => elem.style.display = 'block');
         modal.setAttribute('data-comment', 'comment');
+        modal.classList.add('m-show');
+    }
+    if(e.target.classList.contains('info__btn')){
+        modalTitle.innerHTML = `Заявка на ${infoTitle.innerHTML}`;
+        console.log('11111')
+        modalSubTitle.innerHTML = 'Технический специалист перезвонит Вам в течение 10 минут и ответит на все вопросы';
+        modalBtn.value = 'Отправить';
+        modalShowEl.forEach(elem => elem.style.display = 'none');
         modal.classList.add('m-show');
     }
 }
