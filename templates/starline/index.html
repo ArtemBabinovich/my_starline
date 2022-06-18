@@ -35,10 +35,10 @@
                             </a>
                             <div class="header__hours">
                                 <p class="header__contact-flex weekday">
-                                    Пн-Пт {{ item.time_work1 }}
+                                    {{ item.time_work1 }}
                                 </p>
                                 <p class="weekend">
-                                    Сб-Вс {{ item.time_work2 }}
+                                    {{ item.time_work2 }}
                                 </p>
                             </div>
                             <div class="header__contact">
@@ -95,10 +95,10 @@
                                     </a>
                                     <div class="header__hours">
                                         <p class="weekday">
-                                            Пн-Пт {{ item.time_work1 }}
+                                            {{ item.time_work1 }}
                                         </p>
                                         <p class="weekend">
-                                            Сб-Вс {{ item.time_work2 }}
+                                            {{ item.time_work2 }}
                                         </p>
                                     </div>
                                     <p class="adress">
@@ -256,7 +256,7 @@
                                     Смотреть больше товаров
                                 </a>
                                 <p class="card__text">
-                                    В каталоге <span>{{ products }} позиций</span>, для <span>214</span> марок автомобилей
+                                    В каталоге <span>{{ products }} позиций,</span>для <span>214</span> марок автомобилей
                                 </p>
                             </div>
                         </div>
@@ -274,17 +274,11 @@
                                 <p>
                                     Мы являемся авторизованным сервисным центром Starline в Беларуси. Имеем сертификат на установку современных систем на современные автомобили. Наши мастера-установщики специально обучены непосредственно техниками компании Ультрастар для установки современного дополнительного оборудования на автомобили.
                                 </p>
-                                <p>
-                                    Охранные комплексы (сигнализации) Starline с февраля 2020 года базовая гарантия составляет 3 года. При условии регистрации оборудования на сайте my.starline.ru – гарантия 5 лет
-                                </p>
                             </div>
                             <div class="guarantee__row-img">
                                 <img src="{% static 'main_page/img/guarantee-img.png' %}" alt="guarantee">
                             </div>
                             <div class="guarantee__row-text">
-                                <p>
-                                    Мы являемся авторизованным сервисным центром Starline в Беларуси. Имеем сертификат на установку современных систем на современные автомобили. Наши мастера-установщики специально обучены непосредственно техниками компании Ультрастар для установки современного дополнительного оборудования на автомобили.
-                                </p>
                                 <p>
                                     Охранные комплексы (сигнализации) Starline с февраля 2020 года базовая гарантия составляет 3 года. При условии регистрации оборудования на сайте my.starline.ru – гарантия 5 лет
                                 </p>
@@ -318,7 +312,7 @@
                                     Смотреть больше товаров
                                 </a>
                                 <p class="card__text">
-                                    В каталоге<span>{{ products }} позиций</span>, для<span>214</span>марок автомобилей
+                                    В каталоге<span>{{ products }} позиций,</span>для <span>214</span>марок автомобилей
                                 </p>
                             </div>
                         </div>
@@ -458,10 +452,10 @@
                                         <img src="{% static 'main_page/img/icons/footer-time-img.svg' %}" class="work-item__img" alt="work-time">
                                         <div class="work-time__text">
                                             <p class="footer-text">
-                                                Пн-Пт {{ item.time_work1 }}
+                                                {{ item.time_work1 }}
                                             </p>
                                             <p class="footer-text">
-                                                Сб-Вс {{ item.time_work2 }}
+                                                {{ item.time_work2 }}
                                             </p>
                                         </div>
                                     </div>

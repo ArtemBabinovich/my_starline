@@ -1,11 +1,22 @@
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
 from django.shortcuts import render
+from django.views.decorators.http import require_GET
 from django.views.generic import ListView, DetailView
 
 from .forms import FeedbackForm, CommentForm
 from .models import Contacts, Product, Company, Action, Sale, OurWork
 from .telegram_bot import dialogue, review
 from .utils import GenericPhone1
+
+
+@require_GET
+def robots_txt(request):
+    lines = [
+        "User-Agent: *",
+        "Disallow: /admin/",
+        "Disallow: /our_works/",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
 
 
 def index(request):

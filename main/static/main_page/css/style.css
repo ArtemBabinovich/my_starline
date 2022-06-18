@@ -560,7 +560,9 @@ textarea:focus {
   }
   .menu__list {
     height: initial;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     z-index: 5;
     max-width: none;
@@ -569,6 +571,7 @@ textarea:focus {
     flex-basis: initial;
   }
   .menu__list li {
+    width: fit-content;
     text-align: center;
     height: initial;
     display: block;
@@ -1104,6 +1107,7 @@ textarea:focus {
     padding: 10px 20px;
   }
   .card__text {
+    justify-content: center;
     text-align: center;
     font-size: 14px;
   }

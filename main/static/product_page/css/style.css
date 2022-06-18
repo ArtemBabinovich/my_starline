@@ -534,7 +534,9 @@ textarea:focus {
   }
   .menu__list {
     height: initial;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     z-index: 5;
     max-width: none;
@@ -543,6 +545,7 @@ textarea:focus {
     flex-basis: initial;
   }
   .menu__list li {
+    width: fit-content;
     text-align: center;
     height: initial;
     display: block;
