@@ -1,14 +1,16 @@
+import os
+
 import telebot
 import requests
 
 
-TOKEN = '5570969887:AAH8VgMc01rfdLkuHVdrJ1E3Pdi1ft3qTQc'
+TOKEN = os.environ.get('TOKEN')
 
 """
 1. Чтобы узнать свой id в телеграме зайдите к боту:  @username_to_id_bot и напишите ему свой ник ТГ
 2. Подключитесь к боту https://t.me/roma_signalka_bot
 """
-my_id = 1293474473  # id юзера в телеграмме
+my_id = os.environ.get('my_id')  # id юзера в телеграмме
 telegramBot = telebot.TeleBot(TOKEN)
 
 
